@@ -33,9 +33,40 @@ for( var row = 0;row < 9;row++ ) {
 //console.log(inProgress);
 
 
-checkColumns(inProgress);
+inProgress = checkColumns(inProgress);
+
+//console.log(inProgress);
 
 function checkColumns(data) {
-//  for( var row = 0; row< 9 
+  for( var col = 0; col < 9; col++ ) {
+    data = checkColumn(col, data);
+    console.log(data[col]);
+  }
+
+  return data;
+}
+
+function checkColumn(col, data) {
+  var found = [];
+  for( var row = 0; row < 9; row++ ) {
+    if ( data[row][col].value ) {
+      found[found.length] = data[row][col].value;
+    }
+  }
+
+  console.log(found);
+
+  for( var row = 0; row < 9; row++ ) {
+    if ( ! data[row][col].value ) {
+      for( var i = 0; i < found.length; i++) {
+        var index = data[row][col].options.indexOf(found[i]);
+        if( index > -1 ) {
+            data[row][col].options.splice(index,1);
+        }
+      }
+    }
+  }
+
+  return data;
 }
 
