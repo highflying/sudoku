@@ -34,13 +34,56 @@ for( var row = 0;row < 9;row++ ) {
 
 
 inProgress = checkColumns(inProgress);
+inProgress = checkRows(inProgress);
+inProgress = checkSquares(inProgress);
 
-//console.log(inProgress);
+for( var row = 0; row < 9; row++ ) {
+  console.log(inProgress[row]);
+}
+
+function checkSquares(data) {
+  
+  data = checkSquare(data,0,0);
+  data = checkSquare(data,3,0);
+  data = checkSquare(data,6,0);
+  data = checkSquare(data,0,3);
+  data = checkSquare(data,3,3);
+  data = checkSquare(data,6,3);
+  data = checkSquare(data,0,6);
+  data = checkSquare(data,3,6);
+  data = checkSquare(data,6,6);
+
+  return data;
+}
+
+function checkSquare(data,row1,col1) {
+  var found = [];
+
+  for( var row = row1; row < row1 + 3; row++ ) {
+    for( var col = col1; col < col1 + 3; col++ ) {
+      found[found.length] = data[row][col].value;
+    }
+  }
+
+  for( var row = row1; row < row1 + 3; row++ ) {
+    for( var col = col1; col < col1 + 3; col++ ) {
+      if ( ! data[row][col].value ) {
+        for( var i = 0; i < found.length; i++) {
+          var index = data[row][col].options.indexOf(found[i]);
+          if( index > -1 ) {
+              data[row][col].options.splice(index,1);
+          }
+        }
+      }
+    }
+  }
+  return data;
+}
 
 function checkColumns(data) {
   for( var col = 0; col < 9; col++ ) {
     data = checkColumn(col, data);
-    console.log(data[col]);
+//    console.log(data[col]);
   }
 
   return data;
@@ -54,9 +97,41 @@ function checkColumn(col, data) {
     }
   }
 
-  console.log(found);
+//  console.log(found);
 
   for( var row = 0; row < 9; row++ ) {
+    if ( ! data[row][col].value ) {
+      for( var i = 0; i < found.length; i++) {
+        var index = data[row][col].options.indexOf(found[i]);
+        if( index > -1 ) {
+            data[row][col].options.splice(index,1);
+        }
+      }
+    }
+  }
+
+  return data;
+}
+
+function checkRows(data) {
+  for( var row = 0; row < 9; row++ ) {
+    data = checkRow(row, data);
+  }
+
+  return data;
+}
+
+function checkRow(row, data) {
+  var found = [];
+  for( var col = 0; col < 9; col++ ) {
+    if ( data[row][col].value ) {
+      found[found.length] = data[row][col].value;
+    }
+  }
+
+//  console.log(found);
+
+  for( var col = 0; col < 9; col++ ) {
     if ( ! data[row][col].value ) {
       for( var i = 0; i < found.length; i++) {
         var index = data[row][col].options.indexOf(found[i]);
