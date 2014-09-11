@@ -36,6 +36,7 @@ for( var row = 0;row < 9;row++ ) {
 inProgress = checkColumns(inProgress);
 inProgress = checkRows(inProgress);
 inProgress = checkSquares(inProgress);
+inProgress = checkColumns(inProgress);
 
 for( var row = 0; row < 9; row++ ) {
   console.log(inProgress[row]);
@@ -107,6 +108,32 @@ function checkColumn(col, data) {
             data[row][col].options.splice(index,1);
         }
       }
+    }
+  }
+
+  var found2 = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+
+  for( var row = 0; row < 9; row++ ) {
+    if ( data[row][col].options.length ) {
+      for( var i = 0; i < data[row][col].options.length; i++) {
+        var numFound = data[row][col].options[i];
+//        console.log(numFound);
+        found2[numFound-1] = found2[numFound-1] + 1;
+      }
+    }
+  }
+//  console.log(found2);
+
+  for( var i = 0; i < found2.length; i++ ) {
+    if(found2[i] == 1 ) {
+      for( var row = 0; row < 9; row++ ) {
+        var index = data[row][col].options.indexOf(i+1);
+        if(index>-1) {
+          data[row][col].options = [];
+          data[row][col].value = i+1;
+        }
+      }
+
     }
   }
 
