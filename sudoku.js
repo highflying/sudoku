@@ -16,18 +16,26 @@ console.log(grid);
 
 var inProgress = [];
 
-for( var x = 0;x < 9;x++ ) {
-  inProgress[x] = [];
-  for( var y = 0;y < 9;y++ ) {
-    inProgress[x][y] = {
-      value:   grid[x][y],
+for( var row = 0;row < 9;row++ ) {
+  inProgress[row] = [];
+  for( var col = 0;col < 9;col++ ) {
+    inProgress[row][col] = {
+      value:   grid[row][col],
       options: [1,2,3,4,5,6,7,8,9],
     };
-    if(grid[x][y]) {
-      inProgress[x][y].options = [];
+    if(grid[row][col]) {
+      inProgress[row][col].options = [];
     }
   }
-//  console.log(inProgress[x]);
+//  console.log(inProgress[row]);
 }
 
 //console.log(inProgress);
+
+
+checkColumns(inProgress);
+
+function checkColumns(data) {
+//  for( var row = 0; row< 9 
+}
+
