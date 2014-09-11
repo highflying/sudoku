@@ -11,3 +11,23 @@ var grid = [
   [ 0, 5, 3, 0, 0, 0, 0, 6, 0 ],
 
  ];
+
+console.log(grid);
+
+var inProgress = [];
+
+for( var x = 0;x < 9;x++ ) {
+  inProgress[x] = [];
+  for( var y = 0;y < 9;y++ ) {
+    inProgress[x][y] = {
+      value:   grid[x][y],
+      options: [1,2,3,4,5,6,7,8,9],
+    };
+    if(grid[x][y]) {
+      inProgress[x][y].options = [];
+    }
+  }
+//  console.log(inProgress[x]);
+}
+
+//console.log(inProgress);
